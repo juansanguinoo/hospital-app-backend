@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { createUser, getUsers } from "../controllers/users.js";
+import { createUser, getUsers, updateUser } from "../controllers/users.js";
 import { check } from "express-validator";
 import { validationFields } from "../middleware/validation.js";
 
@@ -16,6 +16,19 @@ router.post(
     validationFields,
   ],
   createUser
+);
+
+router.put(
+  "/update-user/:id",
+  [
+    [
+      check("name", "Name is required").not().isEmpty(),
+      check("email", "Email is required").isEmail(),
+      check("role", "Role is required").not().isEmpty(),
+      validationFields,
+    ],
+  ],
+  updateUser
 );
 
 export default router;
