@@ -84,4 +84,29 @@ const updateUser = async (req, res) => {
   }
 };
 
-export { getUsers, createUser, updateUser };
+const deleleUser = async (req, res) => {
+  const uid = req.params.id;
+
+  try {
+    const existUser = await User.findById(uid);
+
+    if (!existUser) {
+      return res.status(404).json({
+        message: "User does not exists",
+      });
+    }
+
+    await User.findByIdAndDelete(uid);
+
+    res.json({
+      message: "User deleted successfully",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      message: "Something went wrong",
+    });
+  }
+};
+
+export { getUsers, createUser, updateUser, deleleUser };
