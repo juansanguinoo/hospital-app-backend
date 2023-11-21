@@ -3,11 +3,17 @@ import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 
 const getUsers = async (req, res) => {
-  const user = await User.find();
+  const from = Number(req.query.from) || 0;
+
+  const [users, total] = await Promise.all([
+    User.find().skip(from).limit(5),
+    User.countDocuments(),
+  ]);
 
   res.json({
     message: "Users retrieved successfully",
-    user,
+    users,
+    total,
   });
 };
 

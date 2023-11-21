@@ -1,6 +1,13 @@
 import Hospital from "../models/Hospital.js";
 
-const getHospitals = async (req, res) => {};
+const getHospitals = async (req, res) => {
+  const hospitals = await Hospital.find().populate("user", "name");
+
+  res.json({
+    msg: "Hospitals retrieved successfully.",
+    hospitals,
+  });
+};
 
 const createHospital = async (req, res) => {
   const uid = req.uid;

@@ -1,16 +1,25 @@
-import Doctor from "../models/doctor.js";
+import Doctor from "../models/Doctor.js";
 
-const getDoctors = async (req, res) => {};
+const getDoctors = async (req, res) => {
+  const doctors = await Doctor.find()
+    .populate("user", "name")
+    .populate("hospital", "name");
+
+  res.json({
+    msg: "Doctors retrieved successfully.",
+    doctors,
+  });
+};
 
 const createDoctor = async (req, res) => {
   const uid = req.uid;
-  const doctor = new doctor({
+  const doctor = new Doctor({
     user: uid,
     ...req.body,
   });
 
   try {
-    const saveDoctor = await Doctor.save();
+    const saveDoctor = await doctor.save();
 
     res.json({
       msg: "Doctor created successfully.",
