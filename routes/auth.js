@@ -3,9 +3,9 @@ import { login } from "../controllers/auth.js";
 import { check } from "express-validator";
 import { validationFields } from "../middleware/validation.js";
 
-const authRouter = Router();
+const router = Router();
 
-authRouter.post(
+router.post(
   "/login",
   [
     check("email", "Email is required").isEmail(),
@@ -15,4 +15,4 @@ authRouter.post(
   login
 );
 
-export default authRouter;
+export default router;
