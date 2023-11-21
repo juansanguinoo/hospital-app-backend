@@ -1,4 +1,4 @@
-import Hospital from "../models/Hospital.js";
+import Hospital from "../models/hospital.js";
 
 const getHospitals = async (req, res) => {
   const hospitals = await Hospital.find().populate("user", "name");

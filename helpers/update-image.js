@@ -17,9 +17,9 @@ const updateImage = async (model, id, fileName) => {
       }
 
       doctor.img = fileName;
+
       await doctor.save();
       return true;
-
     case "hospitals":
       break;
     case "users":

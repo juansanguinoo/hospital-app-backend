@@ -5,6 +5,8 @@ const getDoctors = async (req, res) => {
     .populate("user", "name")
     .populate("hospital", "name");
 
+  console.log(doctors.image);
+
   res.json({
     msg: "Doctors retrieved successfully.",
     doctors,

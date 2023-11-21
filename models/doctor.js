@@ -5,7 +5,7 @@ const DoctorSchema = Schema({
     type: String,
     required: true,
   },
-  image: {
+  img: {
     type: String,
   },
   user: {

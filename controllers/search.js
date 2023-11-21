@@ -1,5 +1,5 @@
-import User from "../models/User.js";
-import Hospital from "../models/Hospital.js";
+import User from "../models/user.js";
+import Hospital from "../models/hospital.js";
 import Doctor from "../models/doctor.js";
 
 const searchByFilter = async (req, res) => {

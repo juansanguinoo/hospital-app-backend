@@ -1,5 +1,5 @@
+import { updateImage } from "../helpers/update-image.js";
 import { v4 as uuidv4 } from "uuid";
-import { updateImage } from "../helpers/update-image";
 
 const uploadFile = async (req, res) => {
   const { model, id } = req.params;
