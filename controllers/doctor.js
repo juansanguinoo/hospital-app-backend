@@ -1,7 +1,7 @@
 import Doctor from "../models/doctor.js";
 
 const getDoctors = async (req, res) => {
-  const doctors = await Doctor.find()
+  const doctors = await Doctor.find({}, "name img")
     .populate("user", "name")
     .populate("hospital", "name");
 
