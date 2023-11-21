@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
+import { updateImage } from "../helpers/update-image";
 
 const uploadFile = async (req, res) => {
   const { model, id } = req.params;
@@ -43,6 +44,8 @@ const uploadFile = async (req, res) => {
         msg: "Error moving file",
       });
     }
+
+    updateImage(model, id, fileName);
 
     res.json({
       ok: true,

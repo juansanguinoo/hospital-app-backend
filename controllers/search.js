@@ -1,6 +1,6 @@
 import User from "../models/User.js";
 import Hospital from "../models/Hospital.js";
-import Doctor from "../models/Doctor.js";
+import Doctor from "../models/doctor.js";
 
 const searchByFilter = async (req, res) => {
   const filter = req.params.filter;
