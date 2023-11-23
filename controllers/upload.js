@@ -1,5 +1,11 @@
 import { updateImage } from "../helpers/update-image.js";
 import { v4 as uuidv4 } from "uuid";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const uploadFile = async (req, res) => {
   const { model, id } = req.params;
@@ -55,4 +61,17 @@ const uploadFile = async (req, res) => {
   });
 };
 
-export { uploadFile };
+const getImage = (req, res) => {
+  const { model, image } = req.params;
+
+  const pathImg = path.join(__dirname, `../uploads/${model}/${image}`);
+
+  if (fs.existsSync(pathImg)) {
+    res.sendFile(pathImg);
+  } else {
+    const pathImg = path.join(__dirname, `../uploads/no-img.jpg`);
+    res.sendFile(pathImg);
+  }
+};
+
+export { uploadFile, getImage };

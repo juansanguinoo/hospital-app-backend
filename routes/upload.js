@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { validateJWT } from "../middleware/validate-jwt.js";
-import { uploadFile } from "../controllers/upload.js";
+import { getImage, uploadFile } from "../controllers/upload.js";
 import fileUpload from "express-fileupload";
 import { validationFields } from "../middleware/validation.js";
 import { check } from "express-validator";
@@ -19,5 +19,7 @@ router.put(
   ],
   uploadFile
 );
+
+router.get("/:model/:image", validateJWT, getImage);
 
 export default router;
