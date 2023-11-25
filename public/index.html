@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="https://accounts.google.com/gsi/client" async></script>
+    <script>
+      const url = "http://localhost:3333/api/auth/login/google";
+
+      function handleCredentialResponse(response) {
+        console.log("Encoded JWT ID token: " + response.credential);
+
+        fetch(url, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ token: response.credential }),
+        })
+          .then((res) => res.json())
+          .then((data) => console.log(data))
+          .catch((err) => console.log(err));
+      }
+      window.onload = function () {
+        google.accounts.id.initialize({
+          client_id:
+            "50467800818-j8qdaa04kvmuo8nbemmf67ut6ikunecm.apps.googleusercontent.com",
+          callback: handleCredentialResponse,
+        });
+        google.accounts.id.renderButton(document.getElementById("buttonDiv"), {
+          theme: "outline",
+          size: "large",
+        });
+        google.accounts.id.prompt();
+      };
+    </script>
+    <div id="buttonDiv"></div>
+  </body>
+</html>
