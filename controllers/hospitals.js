@@ -34,7 +34,40 @@ const createHospital = async (req, res) => {
   }
 };
 
-const updateHospital = async (req, res) => {};
+const updateHospital = async (req, res) => {
+  try {
+    const uid = req.params.id;
+
+    const hospital = await Hospital.findById(uid);
+
+    if (!hospital) {
+      return res.status(404).json({
+        msg: "Hospital not found.",
+      });
+    }
+
+    const updateHospital = {
+      ...req.body,
+      user: req.uid,
+    };
+
+    const updatedHospital = await Hospital.findByIdAndUpdate(
+      uid,
+      updateHospital,
+      { new: true }
+    );
+
+    res.json({
+      msg: "Hospital updated successfully.",
+      hospital: updatedHospital,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      msg: "Something went wrong.",
+    });
+  }
+};
 
 const deleteHospital = async (req, res) => {};
 

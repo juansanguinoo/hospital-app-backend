@@ -1,6 +1,6 @@
-import { generateToken } from "../helpers/jwt.js";
 import User from "../models/user.js";
 import bcrypt from "bcryptjs";
+import { generateToken } from "../helpers/jwt.js";
 import { verify } from "../helpers/google-verify.js";
 
 const login = async (req, res) => {
@@ -74,4 +74,18 @@ const loginWithGoogle = async (req, res) => {
   }
 };
 
-export { login, loginWithGoogle };
+const verifyJWT = async (req, res) => {
+  const uid = req.uid;
+
+  const token = await generateToken(uid);
+
+  const user = await User.findById(uid);
+
+  res.json({
+    message: "User logged successfully",
+    user,
+    token,
+  });
+};
+
+export { login, loginWithGoogle, verifyJWT };

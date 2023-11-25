@@ -1,7 +1,8 @@
 import { Router } from "express";
-import { login, loginWithGoogle } from "../controllers/auth.js";
+import { login, loginWithGoogle, verifyJWT } from "../controllers/auth.js";
 import { check } from "express-validator";
 import { validationFields } from "../middleware/validation.js";
+import { validateJWT } from "../middleware/validate-jwt.js";
 
 const router = Router();
 
@@ -20,5 +21,7 @@ router.post(
   [check("token", "Token is required").not().isEmpty(), validationFields],
   loginWithGoogle
 );
+
+router.get("/verify-jwt", validateJWT, verifyJWT);
 
 export default router;
