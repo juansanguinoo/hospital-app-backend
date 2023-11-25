@@ -69,6 +69,29 @@ const updateHospital = async (req, res) => {
   }
 };
 
-const deleteHospital = async (req, res) => {};
+const deleteHospital = async (req, res) => {
+  try {
+    const uid = req.params.id;
+
+    const hospital = await Hospital.findById(uid);
+
+    if (!hospital) {
+      return res.status(404).json({
+        msg: "Hospital not found.",
+      });
+    }
+
+    await Hospital.findByIdAndDelete(uid);
+
+    res.json({
+      msg: "Hospital deleted successfully.",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      msg: "Something went wrong.",
+    });
+  }
+};
 
 export { createHospital, deleteHospital, getHospitals, updateHospital };
