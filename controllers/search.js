@@ -13,7 +13,7 @@ const searchByFilter = async (req, res) => {
   ]);
 
   res.json({
-    ok: true,
+    msg: "Search by filter success",
     users,
     hospitals,
     doctors,
@@ -42,13 +42,12 @@ const searchByModelAndFilter = async (req, res) => {
       break;
     default:
       return res.status(400).json({
-        ok: false,
         msg: "The available models are: users, hospitals and doctors",
       });
   }
 
   res.json({
-    ok: true,
+    msg: "Search by model and filter success",
     results: data,
   });
 };

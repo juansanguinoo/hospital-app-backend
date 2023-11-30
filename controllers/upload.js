@@ -14,14 +14,12 @@ const uploadFile = async (req, res) => {
 
   if (!validModels.includes(model)) {
     return res.status(400).json({
-      ok: false,
       msg: "Invalid model",
     });
   }
 
   if (!req.files || Object.keys(req.files).length === 0) {
     return res.status(400).json({
-      ok: false,
       msg: "No files were uploaded.",
     });
   }
@@ -34,7 +32,6 @@ const uploadFile = async (req, res) => {
 
   if (!validExtensions.includes(fileExtension)) {
     return res.status(400).json({
-      ok: false,
       msg: "Invalid extension",
     });
   }
@@ -46,7 +43,6 @@ const uploadFile = async (req, res) => {
     if (err) {
       console.log(err);
       return res.status(500).json({
-        ok: false,
         msg: "Error moving file",
       });
     }
@@ -54,7 +50,6 @@ const uploadFile = async (req, res) => {
     updateImage(model, id, fileName);
 
     res.json({
-      ok: true,
       msg: "File uploaded",
       fileName,
     });
