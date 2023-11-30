@@ -20,6 +20,6 @@ router.put(
   uploadFile
 );
 
-router.get("/:model/:image", validateJWT, getImage);
+router.get("/:model/:image", getImage);
 
 export default router;
