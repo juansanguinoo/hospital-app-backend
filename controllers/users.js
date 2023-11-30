@@ -78,7 +78,9 @@ const updateUser = async (req, res) => {
       }
     }
 
-    fields.email = email;
+    if (!existUser.google) {
+      fields.email = email;
+    }
 
     const user = await User.findByIdAndUpdate(uid, fields, { new: true });
 
