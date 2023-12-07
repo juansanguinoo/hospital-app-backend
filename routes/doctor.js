@@ -5,6 +5,7 @@ import { validateJWT } from "../middleware/validate-jwt.js";
 import {
   createDoctor,
   deleteDoctor,
+  getDoctorById,
   getDoctors,
   updateDoctor,
 } from "../controllers/doctor.js";
@@ -36,5 +37,7 @@ router.put(
 );
 
 router.delete("/delete-doctor/:id", validateJWT, deleteDoctor);
+
+router.get("/get-doctor/:id", validateJWT, getDoctorById);
 
 export default router;

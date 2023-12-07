@@ -93,4 +93,30 @@ const deleteDoctor = async (req, res) => {
   }
 };
 
-export { createDoctor, deleteDoctor, getDoctors, updateDoctor };
+const getDoctorById = async (req, res) => {
+  try {
+    const uid = req.params.id;
+
+    const doctor = await Doctor.findById(uid)
+      .populate("user", "name img")
+      .populate("hospital", "name img");
+
+    if (!doctor) {
+      return res.status(404).json({
+        msg: "Doctor not found.",
+      });
+    }
+
+    res.json({
+      msg: "Doctor retrieved successfully.",
+      doctor,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      msg: "Something went wrong.",
+    });
+  }
+};
+
+export { createDoctor, deleteDoctor, getDoctors, updateDoctor, getDoctorById };
