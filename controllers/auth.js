@@ -2,6 +2,7 @@ import User from "../models/user.js";
 import bcrypt from "bcryptjs";
 import { generateToken } from "../helpers/jwt.js";
 import { verify } from "../helpers/google-verify.js";
+import { getMenuItems } from "../helpers/sidebar-menu.js";
 
 const login = async (req, res) => {
   const { email, password } = req.body;
@@ -28,6 +29,7 @@ const login = async (req, res) => {
     res.json({
       message: "User logged successfully",
       token,
+      menu: getMenuItems(user.role),
     });
   } catch (error) {
     console.log(error);
@@ -65,6 +67,7 @@ const loginWithGoogle = async (req, res) => {
       message: "User logged successfully",
       user,
       token,
+      menu: getMenuItems(user.role),
     });
   } catch (error) {
     console.log(error);
@@ -85,6 +88,7 @@ const verifyJWT = async (req, res) => {
     message: "User logged successfully",
     user,
     token,
+    menu: getMenuItems(user.role),
   });
 };
 
