@@ -55,4 +55,35 @@ const validateRole = async (req, res, next) => {
   }
 };
 
-export { validateJWT, validateRole };
+const validateRoleOrSameUser = async (req, res, next) => {
+  const uid = req.uid;
+  const id = req.params.id;
+
+  try {
+    const existsUser = await User.findById(uid);
+
+    if (!existsUser) {
+      return res.status(404).json({
+        ok: false,
+        message: "User not found",
+      });
+    }
+
+    if (existsUser.role === "ADMIN_ROLE" || uid === id) {
+      next();
+    } else {
+      return res.status(403).json({
+        ok: false,
+        message: "User not authorized",
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      ok: false,
+      message: "Invalid token",
+    });
+  }
+};
+
+export { validateJWT, validateRole, validateRoleOrSameUser };
